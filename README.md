@@ -21,7 +21,7 @@ Phase 2 builds a baseline RAG pipeline over the local corpus in **`data/raw/`** 
 
 3. **Corpus:** Place PDFs in **`data/raw/`**. Optionally use `Research_Papers/` and run `python scripts/run_ingest.py --source Research_Papers` to copy into `data/raw/`. No live links required; all processing is local.
 
-   **Recommended run order:**
+   **Recommended run order:** (use `python3` if `make` invokes a Python without the required packages)
    ```bash
    make ingest
    make merge_bib_manifest_write
@@ -29,6 +29,7 @@ Phase 2 builds a baseline RAG pipeline over the local corpus in **`data/raw/`** 
    make phase2_demo
    make run_eval
    ```
+   If `make ingest` fails with "PyMuPDF not installed", run `python3 scripts/run_ingest.py` and `python3 scripts/build_index.py` directly.
 
    **Rebuild index after changing extraction or chunking** (e.g. extraction normalization, pre-chunk filter):
    ```bash
@@ -55,8 +56,12 @@ Phase 2 builds a baseline RAG pipeline over the local corpus in **`data/raw/`** 
   - `phase2_runs.jsonl` — one JSON object per query run (timestamp, query_id, query_text, retrieval_method, top_k, retrieved_chunks, generated_answer, citations, model_name, prompt_version)
 
 - **metrics/**  
-  - `phase2_eval_summary.json` — aggregate metrics (groundedness/faithfulness heuristic, citation_precision)  
-  - `phase2_eval_per_query.csv` — per-query breakdown
+  - `aggregate_metrics.json` — aggregate scores (context_precision, context_recall, faithfulness, citation_precision, answer_relevance, etc.)  
+  - `per_query_metrics.json` — per-query breakdown  
+  - `evaluation_summary.md` — mean scores and failure cases
+
+- **report/**  
+  - `phase2_evaluation_report.md` — Phase 2 evaluation report (query design, metrics, results, enhancements, failure cases)
 
 ## Commands
 
@@ -94,7 +99,7 @@ python -m prp query "Your question here"
 python scripts/run_query.py "Your question here" [optional_query_id]
 ```
 
-**Output format:** Answer (synthesis only, no citations) + Evidence (quotes with APA-style `(Author et al., Year)` citations) + References and Reference-to-Chunk Mapping. Use `SHOW_REFERENCES=0` to hide References.
+**Output format:** Answer (synthesized, with APA-style inline citations) + Evidence (quotes with `(Author et al., Year)`) + References and Reference-to-Chunk Mapping. Use `SHOW_REFERENCES=0` to hide References.
 
 **USE_LLM:** `USE_LLM=1` (default) uses the LLM for Answer synthesis; `USE_LLM=0` uses extractive summarization. No hybrid fallback.
 
@@ -115,17 +120,23 @@ python scripts/run_eval.py
 ```
 
 Writes:
-- `metrics/phase2_eval_summary.json`
-- `metrics/phase2_eval_per_query.csv`
+- `metrics/aggregate_metrics.json`
+- `metrics/per_query_metrics.json`
+- `metrics/evaluation_summary.md`
 
 ## Evaluation metrics
 
-- **Groundedness/faithfulness (heuristic):** fraction of answer words that appear in retrieved text.
-- **Citation precision:** fraction of citations that resolve to actual retrieved chunk text in `chunks.jsonl`.
+- **Context precision:** fraction of retrieved chunks relevant to the query (keyword-based).
+- **Context recall:** fraction of relevant chunks retrieved.
+- **Faithfulness:** degree to which answer claims are supported by retrieved chunks.
+- **Citation precision:** fraction of citations that resolve to actual retrieved chunk text (target: 1.0, no fabricated citations).
+- **Answer relevance:** how well the answer addresses the query intent.
 
 ## Enhancement implemented
 
 **Hybrid retrieval:** BM25 (rank_bm25) + vector (FAISS). Results are merged using **reciprocal rank fusion (RRF)**. No API keys required; embeddings use `sentence-transformers/all-MiniLM-L6-v2` locally.
+
+**PDF text extraction:** Word-based extraction (PyMuPDF `get_text("words")`) and post-processing (`fix_concatenated_words`) correct missing spaces between words (e.g. `AItools` → `AI tools`, `patientcentered` → `patient-centered`). Applied at ingest, chunking, and generation.
 
 **Two-pass retrieval:** For general queries (non-compare), retrieval runs in two passes. Pass 1 retrieves answer-focused chunks. Pass 2 runs a modified query (original + limitations/uncertainty/bias/generalizability/adherence keywords) to find limitation-related evidence. Results are merged with deduplication and per-source cap. The "Limitations / uncertainty" section is written **only** from Pass 2 chunks; if none are found, the answer states "No limitation-related evidence retrieved." Logs show which chunks came from Pass 1 vs Pass 2.
 
@@ -133,7 +144,7 @@ Writes:
 
 **Source diversification:** When selecting the final `top_k` chunks, retrieval caps the number of chunks per `source_id` (`MAX_PER_SOURCE` in `prp/config.py`, default 2). This avoids collapsing to a single document and improves coverage and groundedness. Remaining slots are filled from the next best sources by RRF score. To assert diversification, run `python scripts/test_retrieval_diversification.py` (requires indexes). Retrieved chunk IDs and `source_id`s are logged at INFO for debugging.
 
-**Query-aware relevance:** After RRF + diversification, chunks are re-ranked by a weighted combination of RRF score and query–chunk embedding similarity (`RELEVANCE_RRF_WEIGHT` + `RELEVANCE_SIM_WEIGHT` in `prp/config.py`). Chunks with cosine similarity below `RELEVANCE_MIN_SIMILARITY` (default 0.25) are deprioritized when enough above-threshold chunks exist. Chunks containing unrelated disease terms (e.g. "cancer", "chemotherapy") are downweighted when the query does not mention cancer (`UNRELATED_CONTEXT_PENALTY`). Threshold 0.25 was chosen so that on sample queries ("effectiveness and limitations", general personalized-nutrition questions) irrelevant surface-keyword matches (e.g. cancer taste/smell) drop out of top 5. Run `python scripts/test_relevance_effectiveness_limitations.py` to assert Nature Medicine RCT appears in top 5 and cancer chunks do not when query doesn't mention cancer.
+**Query-aware relevance:** After RRF + diversification, chunks are re-ranked by a weighted combination of RRF score and query–chunk embedding similarity (`RELEVANCE_RRF_WEIGHT` + `RELEVANCE_SIM_WEIGHT` in `prp/config.py`). Chunks with cosine similarity below `RELEVANCE_MIN_SIMILARITY` (default 0.25) are deprioritized when enough above-threshold chunks exist. Chunks containing unrelated disease terms (e.g. "cancer", "chemotherapy") are downweighted when the query does not mention cancer (`UNRELATED_CONTEXT_PENALTY`).
 
 **Filters: funding/ack + bibliography.** Before chunking, lines likely to be acknowledgements, funding, conflicts of interest, or publisher/metadata boilerplate are removed (e.g. “supported by”, “funded by”, “grant”, “acknowledg”, “Received:”, “frontiersin.org”). This keeps chunks grounded and avoids citing non-content text. At retrieval time, chunks from References/Bibliography sections are also filtered (headings, citation patterns, semicolon density, author-year patterns, numbered refs). The filters are conservative so legitimate methods/results are not removed. After rebuilding, run `python scripts/check_chunks_ack_filter.py` to confirm ack/funding counts are 0 or near 0. Run `pytest tests/test_filters_and_evidence.py` to verify filters.
 
@@ -143,7 +154,7 @@ Writes:
 - **Unsupported strong claims:** For queries that assert strong claims (e.g. “cures”, “guarantee”, “proven”), the system refuses to support the claim unless the retrieved text explicitly contains the claim language. Otherwise it returns a refusal message and lists related evidence as “not supporting the claim.”
 - If retrieval returns no or low-confidence chunks, the answer states that no evidence was found.
 - If conflicting evidence is detected (heuristic), the answer explicitly flags it and cites both sides.
-- Citations are in the form `(source_id, chunk_id)` and resolve to entries in `data/processed/chunks.jsonl`.
+- Citations use APA-style `(Author et al., Year)` in the Answer and Evidence sections. References list full citations; a Reference-to-Chunk mapping links each to specific chunk IDs in `data/processed/chunks.jsonl`.
 
 ## Phase 1
 
