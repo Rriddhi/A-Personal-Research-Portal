@@ -1,0 +1,222 @@
+[
+  {
+    "query_id": "eq_01",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.4798,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_02",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.5293,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_03",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.4317,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_04",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.2654,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_05",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.5009,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_06",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.3962,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_07",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.6011,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_08",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.6147,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_09",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.3044,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_10",
+    "context_precision": 0.8,
+    "context_recall": 0.8,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.5011,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_11",
+    "context_precision": 0.4,
+    "context_recall": 0.4,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.5262,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_12",
+    "context_precision": 0.8,
+    "context_recall": 0.8,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.0826,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_13",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.231,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_14",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.4643,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_15",
+    "context_precision": 0.4,
+    "context_recall": 0.4,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.2237,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_16",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.3887,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_17",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.2527,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_18",
+    "context_precision": 0.8,
+    "context_recall": 0.8,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.1374,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_19",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.2176,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  },
+  {
+    "query_id": "eq_20",
+    "context_precision": 1.0,
+    "context_recall": 1.0,
+    "faithfulness": 2.5,
+    "citation_precision": 1.0,
+    "answer_relevance": 3.3068,
+    "coherence": 2.5,
+    "conciseness": 2.5,
+    "artifact_readiness": 2.5
+  }
+]

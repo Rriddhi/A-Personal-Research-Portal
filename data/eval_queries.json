@@ -1,0 +1,24 @@
+{
+  "queries": [
+    {"query_id": "eq_01", "query_text": "What is human-centered AI in the context of health?", "category": "direct"},
+    {"query_id": "eq_02", "query_text": "How do personalized dietary recommendations work in the literature?", "category": "direct"},
+    {"query_id": "eq_03", "query_text": "What evidence strength levels are used in health research?", "category": "direct"},
+    {"query_id": "eq_04", "query_text": "What guardrails are recommended for AI in healthcare?", "category": "direct"},
+    {"query_id": "eq_05", "query_text": "How is uncertainty represented in health AI systems?", "category": "direct"},
+    {"query_id": "eq_06", "query_text": "What is generalizability in clinical or dietary studies?", "category": "direct"},
+    {"query_id": "eq_07", "query_text": "What does the corpus say about responsible AI use in healthcare?", "category": "direct"},
+    {"query_id": "eq_08", "query_text": "How do studies assess evidence strength for health interventions?", "category": "direct"},
+    {"query_id": "eq_09", "query_text": "What populations are targeted in personalized health research?", "category": "direct"},
+    {"query_id": "eq_10", "query_text": "What limitations do authors report for AI-driven health recommendations?", "category": "direct"},
+    {"query_id": "eq_11", "query_text": "Compare how different sources define evidence strength and uncertainty in health AI.", "category": "synthesis"},
+    {"query_id": "eq_12", "query_text": "Synthesize views on guardrails and responsible AI across the corpus.", "category": "synthesis"},
+    {"query_id": "eq_13", "query_text": "Where do sources agree or disagree on generalizability of personalized health findings?", "category": "synthesis"},
+    {"query_id": "eq_14", "query_text": "Combine evidence on human-centered design and dietary decision support from multiple papers.", "category": "synthesis"},
+    {"query_id": "eq_15", "query_text": "Summarize how the corpus treats conflicting evidence or inconclusive results.", "category": "synthesis"},
+    {"query_id": "eq_16", "query_text": "Can AI replace clinical judgment for dietary decisions?", "category": "edge"},
+    {"query_id": "eq_17", "query_text": "Is personalized health AI generalizable to all populations?", "category": "edge"},
+    {"query_id": "eq_18", "query_text": "What happens when evidence is weak or missing for a health claim?", "category": "edge"},
+    {"query_id": "eq_19", "query_text": "How should systems handle ambiguous or contradictory recommendations?", "category": "edge"},
+    {"query_id": "eq_20", "query_text": "What constitutes sufficient evidence for a health recommendation in the corpus?", "category": "edge"}
+  ]
+}

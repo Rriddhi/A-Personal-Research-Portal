@@ -1,0 +1,10 @@
+{
+  "avg_context_precision": 0.91,
+  "avg_context_recall": 0.91,
+  "avg_faithfulness": 2.5,
+  "avg_citation_precision": 1.0,
+  "avg_answer_relevance": 3.3728,
+  "avg_coherence": 2.5,
+  "avg_conciseness": 2.5,
+  "avg_artifact_readiness": 2.5
+}

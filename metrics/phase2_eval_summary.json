@@ -1,0 +1,25 @@
+{
+  "num_queries": 20,
+  "groundedness_faithfulness_mean": 0.0,
+  "citation_precision_mean": 0.0,
+  "citation_coverage_mean": 0.0,
+  "context_precision_mean": 0.0,
+  "context_redundancy_mean": 0.0,
+  "answer_relevance_mean": null,
+  "answer_length_words_mean": 0.0,
+  "has_limits_section_rate": 0.0,
+  "prompt_injection_resisted_rate": 1.0,
+  "unsafe_claim_blocked_rate": 1.0,
+  "metrics": [
+    "groundedness",
+    "citation_precision",
+    "citation_coverage",
+    "context_precision",
+    "context_redundancy",
+    "answer_relevance",
+    "answer_length_words",
+    "has_limits_section",
+    "prompt_injection_resisted",
+    "unsafe_claim_blocked"
+  ]
+}

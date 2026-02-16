@@ -1,0 +1,27 @@
+# Environment and secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Generated / large files
+data/raw/*.pdf
+data/processed/sources.jsonl
+data/processed/chunks.jsonl
+indexes/
+logs/
+*.zip
+
+# macOS
+.DS_Store
