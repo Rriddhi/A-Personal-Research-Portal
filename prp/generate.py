@@ -310,8 +310,8 @@ def _format_phase2_output(
     for i, (quote, sid, cid, explanation) in enumerate(evidence_items[:8], 1):
         if retrieved_chunks and cid and cid not in valid_chunk_ids:
             continue
-        # Trim quote to <=30 words, fix spacing
-        quote_clean = " ".join(clean_chunk_text_for_generation(quote).split()[:30])
+        # Trim quote to <=50 words (word boundary), fix spacing
+        quote_clean = " ".join(clean_chunk_text_for_generation(quote).split()[:50])
         cit = format_in_text_apa(sid or "") if sid else ""
         support_text = explanation if explanation.startswith("Supports:") else f"Supports: {explanation}"
         parts.append(f'{i}. "{quote_clean}" {cit}')
@@ -2072,10 +2072,9 @@ def generate_answer(
 
     has_conflict = result.get("has_conflict", False)
     if has_conflict:
-        result["answer"] = (
+        result["conflict_disclaimer"] = (
             "Note: The retrieved evidence may contain conflicting or contrasting findings; "
-            "both sides are cited below. Interpret with care.\n\n"
-            + result["answer"]
+            "both sides are cited below. Interpret with care."
         )
     return result
 
@@ -2286,7 +2285,10 @@ def _generate_with_llm(
         import openai
     except ImportError:
         raise RuntimeError("openai not installed")
-    client = openai.OpenAI()
+    api_key = os.environ.get("OPENAI_API_KEY") or ""
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY not set. Add it to a .env file in the project root or set the environment variable.")
+    client = openai.OpenAI(api_key=api_key)
     llm_model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 
     chunk_list = []
@@ -2308,7 +2310,7 @@ def _generate_with_llm(
         model=llm_model,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.2,
-        max_tokens=600,
+        max_tokens=1000,
     )
     answer_text = resp.choices[0].message.content or ""
     answer_text = strip_all_citations_from_text(answer_text).strip()

@@ -33,6 +33,7 @@ BM25_DIR = INDEXES_DIR / "bm25"
 # Logs and metrics
 LOGS_DIR = REPO_ROOT / "logs"
 RUNS_DIR = LOGS_DIR / "runs"
+SESSIONS_DIR = LOGS_DIR / "sessions"
 PHASE2_RUNS_JSONL = RUNS_DIR / "phase2_runs.jsonl"
 METRICS_DIR = REPO_ROOT / "metrics"
 EVAL_SUMMARY_JSON = METRICS_DIR / "phase2_eval_summary.json"
@@ -40,6 +41,13 @@ EVAL_PER_QUERY_CSV = METRICS_DIR / "phase2_eval_per_query.csv"
 PER_QUERY_METRICS_JSON = METRICS_DIR / "per_query_metrics.json"
 AGGREGATE_METRICS_JSON = METRICS_DIR / "aggregate_metrics.json"
 EVALUATION_SUMMARY_MD = METRICS_DIR / "evaluation_summary.md"
+
+# Phase 3 outputs (artifacts, ledgers, eval)
+OUTPUTS_DIR = REPO_ROOT / "outputs"
+OUTPUTS_ARTIFACTS_DIR = OUTPUTS_DIR / "artifacts"
+OUTPUTS_LEDGERS_DIR = OUTPUTS_DIR / "ledgers"
+OUTPUTS_EVAL_DIR = OUTPUTS_DIR / "eval"
+EVAL_SUMMARY_MD_OUTPUT = OUTPUTS_EVAL_DIR / "eval_summary.md"
 
 # Chunking defaults
 CHUNK_SIZE = 1000
@@ -85,6 +93,7 @@ def ensure_dirs():
     for d in (
         DATA_DIR, RAW_DIR, PROCESSED_DIR,
         INDEXES_DIR, BM25_DIR,
-        LOGS_DIR, RUNS_DIR, METRICS_DIR,
+        LOGS_DIR, RUNS_DIR, SESSIONS_DIR, METRICS_DIR,
+        OUTPUTS_DIR, OUTPUTS_ARTIFACTS_DIR, OUTPUTS_LEDGERS_DIR, OUTPUTS_EVAL_DIR,
     ):
         d.mkdir(parents=True, exist_ok=True)

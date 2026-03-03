@@ -1,0 +1,8 @@
+{
+  "avg_context_precision": 0.7163,
+  "avg_citation_precision": 1.0,
+  "avg_citation_coverage": 0.8875,
+  "avg_unsupported_claim_rate": 0.1125,
+  "avg_faithfulness_proxy_mean": 0.4986,
+  "avg_retrieval_diversity": 3.8
+}

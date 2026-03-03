@@ -118,10 +118,74 @@ def fix_concatenated_words(text: str) -> str:
         ("In for matics", "Informatics"),
         ("Trans for mer", "Transformer"),
         ("monitoringper", "monitoring per"),
+        ("categorizedinto", "categorized into"),
+        ("learnfrom", "learn from"),
+        ("monitoringperformance", "monitoring performance"),
+        ("addressingbias", "addressing bias"),
+        ("educatingstaff", "educating staff"),
+        ("suchas", "such as"),
+        ("iscompleted", "is completed"),
+        ("anexampleispresentedin", "an example is presented in"),
+        ("anexample", "an example"),
+        ("ispresentedin", "is presented in"),
+        ("Atthispoint", "At this point"),
+        ("atthispoint", "at this point"),
+        ("SupplementaryBox1", "Supplementary Box 1"),
+        ("clinicalapplications", "clinical applications"),
+        ("privacyand", "privacy and"),
+        ("varioussubfields", "various subfields"),
+        ("translationaccuracy", "translation accuracy"),
+        ("thosewhoare", "those who are"),
+        ("tendto", "tend to"),
+        ("beingan", "being an"),
+        ("Methodssuch", "Methods such"),
+        ("methodssuch", "methods such"),
+        ("careteam", "care team"),
+        ("human-computerinteraction", "human-computer interaction"),
+        ("I solutions", "AI solutions"),
+        ("I solution", "AI solution"),
+        ("Al system", "AI system"),
+        ("Al framework", "AI framework"),
+        ("Al developers", "AI developers"),
+        ("Al-induced", "AI-induced"),
+        ("Al is ", "AI is "),
+        ("Al19", "AI19"),
+        ("onlyonthose", "only on those"),
+        ("withready", "with ready"),
+        ("evaluatingits", "evaluating its"),
+        ("screeningtool", "screening tool"),
+        ("orpopulation", "or population"),
+        ("wholack", "who lack"),
+        ("thedifferential", "the differential"),
+        ("prioritiesforan", "priorities for an"),
+        ("provideinsights", "provide insights"),
+        ("intogene-diet", "into gene-diet"),
+        ("metabolicrisk", "metabolic risk"),
+        ("Weinterviewed", "We interviewed"),
+        ("weinterviewed", "we interviewed"),
+        ("stakeholdersincluding", "stakeholders including"),
+        ("healthsystemleaders", "health system leaders"),
+        ("per for m", "perform"),
+        ("per for mance", "performance"),
+        ("thatmimichuman", "that mimic human"),
+        ("thathumansare", "that humans are"),
+        ("systemscan", "systems can"),
+        ("Albias", "AI bias"),
     ]
     for bad, good in replacements:
         text = text.replace(bad, good)
     return text
+
+
+def normalize_claim_spacing(text: str) -> str:
+    """
+    Insert space before capital letters that follow lowercase or period.
+    Fixes run-together words like 'translationAccuracy' -> 'translation Accuracy',
+    'implementation.We' -> 'implementation. We'. Safe for claim/evidence display.
+    """
+    if not text or not isinstance(text, str):
+        return text
+    return re.sub(r"([a-z.])([A-Z])", r"\1 \2", text)
 
 
 def normalize_extracted_text(text: str) -> str:

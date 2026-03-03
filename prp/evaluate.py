@@ -249,14 +249,18 @@ def run_evaluation_single_mode(
     mode: str,
     run_fn: Callable[[str, Optional[str]], dict],
     queries_path: Path | None = None,
+    max_queries: Optional[int] = None,
 ) -> tuple[List[dict], dict]:
     """
     Run evaluation with a given run_fn(query_text, query_id) -> result.
     Returns (per_query_metrics_list, aggregate_metrics_dict).
+    max_queries: if set, run only the first N queries (for quick runs).
     """
     ensure_dirs()
     METRICS_DIR.mkdir(parents=True, exist_ok=True)
     queries = load_eval_queries(queries_path)
+    if max_queries is not None and max_queries > 0:
+        queries = queries[:max_queries]
     chunk_texts = load_chunk_texts()
     per_query: List[dict] = []
 
@@ -323,12 +327,12 @@ def run_evaluation_single_mode(
     return per_query, agg
 
 
-def run_evaluation(queries_path: Path | None = None) -> tuple[dict, List[dict]]:
-    """Run baseline RAG evaluation. Returns (aggregate_dict, per_query_list)."""
+def run_evaluation(queries_path: Path | None = None, max_queries: Optional[int] = None) -> tuple[dict, List[dict]]:
+    """Run baseline RAG evaluation. Returns (aggregate_dict, per_query_list). max_queries: cap for quick runs."""
     def run_baseline(qtext: str, qid: str | None) -> dict:
         return run_query(qtext, query_id=qid)
 
-    per_query, agg = run_evaluation_single_mode("baseline", run_baseline, queries_path)
+    per_query, agg = run_evaluation_single_mode("baseline", run_baseline, queries_path, max_queries=max_queries)
     return agg, per_query
 
 

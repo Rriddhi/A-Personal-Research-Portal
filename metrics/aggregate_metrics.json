@@ -1,10 +1,10 @@
 {
-  "avg_context_precision": 0.7113,
-  "avg_context_recall": 0.7113,
-  "avg_faithfulness": 2.5,
+  "avg_context_precision": 0.7213,
+  "avg_context_recall": 0.7213,
+  "avg_faithfulness": 3.9,
   "avg_citation_precision": 1.0,
-  "avg_answer_relevance": 3.1268,
-  "avg_coherence": 2.5,
-  "avg_conciseness": 2.5,
-  "avg_artifact_readiness": 2.5
+  "avg_answer_relevance": 3.4729,
+  "avg_coherence": 3.5,
+  "avg_conciseness": 3.0,
+  "avg_artifact_readiness": 3.15
 }

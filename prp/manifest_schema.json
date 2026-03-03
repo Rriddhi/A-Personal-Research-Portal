@@ -1,0 +1,5 @@
+{
+  "required": ["doc_id", "title", "authors", "year", "source_path", "source_type", "license"],
+  "optional": ["venue", "tags", "abstract", "url", "hash", "parse_quality_score", "ingested_at", "unknown_reason", "source_id", "bib_key", "source_label", "type", "link_or_doi", "relevance_note", "local_path", "journal"],
+  "aliases": { "doc_id": ["source_id"], "source_path": ["local_path"], "source_type": ["type"], "license": [] }
+}
